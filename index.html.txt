@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AudioGuida dei Monumenti</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8d7d9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    button {
+      background-color: #4C6EF5; /* blu */
+      color: white;
+      border: none;
+      padding: 15px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 250px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #3851b8; /* blu più scuro */
+    }
+
+    audio {
+      display: none;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>AudioGuida dei Monumenti</h1>
+
+  <div class="button-container">
+    <!-- Pulsanti per ogni monumento -->
+    <button onclick="playAudio('cenacolo')">Cenacolo</button>
+    <button onclick="playAudio('santAmbrogio')">Sant'Ambrogio</button>
+    <button onclick="playAudio('santEustorgio')">Sant'Eustorgio</button>
+    <button onclick="playAudio('monasteroSMaurizio')">Monastero S. Maurizio</button>
+  </div>
+
+  <!-- Messaggio di stato -->
+  <div class="message" id="message"></div>
+
+  <!-- Audio files -->
+  <audio id="cenacolo" src="audio/cenacolo.mp3"></audio>
+  <audio id="santAmbrogio" src="audio/santAmbrogio.mp3"></audio>
+  <audio id="santEustorgio" src="audio/santEustorgio.mp3"></audio>
+  <audio id="monasteroSMaurizio" src="audio/monasteroSMaurizio.mp3"></audio>
+
+  <script>
+    function playAudio(monumento) {
+      // Nascondiamo il messaggio precedente
+      document.getElementById("message").textContent = "";
+      
+      // Fermiamo qualsiasi audio in riproduzione
+      const audios = document.querySelectorAll("audio");
+      audios.forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
+
+      // Riproduciamo l'audio del monumento selezionato
+      const audio = document.getElementById(monumento);
+      if (audio) {
+        audio.play();
+        document.getElementById("message").textContent = "Ascoltando la guida per " + capitalizeFirstLetter(monumento);
+      }
+    }
+
+    // Funzione per rendere la prima lettera maiuscola (per il messaggio)
+    function capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+  </script>
+
+</body>
+</html>
