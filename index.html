@@ -4,7 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audioguida Cenacolo</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Stile CSS integrato */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 35px;
+            font-size: 2.2em;
+        }
+
+        #playAudioBtn {
+            background-color: #ff8c00; /* Arancione vivace */
+            color: white;
+            border: none;
+            padding: 18px 35px;
+            border-radius: 30px; /* Tasto ben arrotondato */
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        #playAudioBtn:hover {
+            background-color: #e07b00; /* Arancione leggermente più scuro al passaggio del mouse */
+            transform: translateY(-2px); /* Effetto leggero di sollevamento */
+        }
+
+        #playAudioBtn:active {
+            background-color: #cc6c00; /* Ancora più scuro al click */
+            transform: translateY(0);
+        }
+
+        /* Nasconde il lettore audio HTML di default */
+        #audioPlayer {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -12,6 +67,31 @@
         <button id="playAudioBtn">Ascolta Audioguida Cenacolo</button>
         <audio id="audioPlayer"></audio>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        // Script JavaScript integrato
+        document.addEventListener('DOMContentLoaded', () => {
+            const playAudioBtn = document.getElementById('playAudioBtn');
+            const audioPlayer = document.getElementById('audioPlayer');
+
+            // Imposta la sorgente audio
+            audioPlayer.src = 'cenacolo.m4a'; // Il file audio deve essere nella stessa cartella
+
+            playAudioBtn.addEventListener('click', () => {
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    playAudioBtn.textContent = 'Metti in pausa Audioguida Cenacolo';
+                } else {
+                    audioPlayer.pause();
+                    playAudioBtn.textContent = 'Ascolta Audioguida Cenacolo';
+                }
+            });
+
+            // Resetta il testo del tasto quando l'audio finisce
+            audioPlayer.addEventListener('ended', () => {
+                playAudioBtn.textContent = 'Ascolta Audioguida Cenacolo';
+            });
+        });
+    </script>
 </body>
 </html>
